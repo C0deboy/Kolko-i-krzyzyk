@@ -20,7 +20,7 @@ function draw()
 	for(var i=1; i<=9; i++) 
 	{
 		document.getElementById(i).onclick="";
-		document.getElementById(i).classList.remove('field:hover');
+		document.getElementById(i).classList.remove('field');
 		document.getElementById(i).classList.add('off');
 	}
 	document.getElementById("result").innerHTML="<img src='img/remis.png'>";
