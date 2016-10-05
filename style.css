@@ -3,13 +3,13 @@ body {
 	color: white;
 }
 
-#baner {
+.banner {
 	margin-left: auto;
 	margin-right: auto;
 	width: 800px;
 }
 
-#pola{
+.fields{
 	margin-left: auto;
 	margin-right: auto;
 	width: 600px;
@@ -17,9 +17,10 @@ body {
 	background-image: url("img/plansza.png");
 	top: 150px;
 	text-align: center;
+	
 }
 
-#wynik {
+.result {
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
@@ -30,18 +31,19 @@ body {
 	color: #b31aff;
 }
 
-.pole {
+.field {
 	margin: 20px;
 	height:  160px;
 	width: 160px;
 	cursor: pointer;
+	float: left;
 }
 
-.pole p {
+.field p {
 	visibility: hidden;
 }
 
-.pole:hover {
+.field:hover {
 	background-color: #1a1a1a;
 	box-shadow: 0px 0px 10px 10px #1a1a1a;
 }
@@ -50,6 +52,7 @@ body {
 	margin: 20px;
 	height:  160px;
 	width: 160px;
+	float: left;
 }
 
 .off:hover {
@@ -62,7 +65,7 @@ body {
 
 
 
-#replay {
+.replay {
 	font-size: 25px;
 	padding: 40px;
 	cursor: pointer;
@@ -71,7 +74,7 @@ body {
 	right: 30px;
 }
 
-#tura {
+.turn {
 
 	font-size: 25px;
 	padding: 40px;
@@ -80,7 +83,7 @@ body {
 	left: 30px;
 }
 
-#replay img, #tura img {
+.replay img, .turn img {
 	height: 150px;
 	width: 150px;
 	

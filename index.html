@@ -8,16 +8,19 @@
 	
 	<meta name="description" content="Opis w Google" />
 	<meta name="keywords" content="słowa, kluczowe, wypisane, po, porzecinku" />
-	<script type="text/javascript" src="script.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<link rel="stylesheet" href="style.css">
 	
 </head>
 
 <body>
-	<div id="tura"><p>Zaczyna:</p><img src="img/kolko.png"></div>
-	<div id="baner"><img src="img/baner.png"></div>
-	<div id="pola"></div>
-	<div id="replay"><p>Jeszcze raz! </p><img onclick="location.reload()" src="img/replay.png"></div>
-	<div id="wynik"></div>
+	<div class="turn"><p>Zaczyna:</p><img src="img/kolko.png"></div>
+	<div class="banner"><img src="img/baner.png"></div>
+	<div id="fields" class="fields"></div>
+	<div id="replay"  class="replay"><p>Jeszcze raz! </p><img src="img/replay.png"></div>
+	<div id="result" class="result"></div>
+		
+	<script src="script.js"></script>
+	
 </body>
 </html>
