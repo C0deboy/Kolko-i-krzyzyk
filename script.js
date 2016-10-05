@@ -19,10 +19,9 @@ function draw()
  {
 	for(var i=1; i<=9; i++) 
 	{
-		var nr = ""+i;
-		document.getElementById(nr).onclick="";
-		document.getElementById(nr).classList.remove('field:hover');
-		document.getElementById(nr).classList.add('off');
+		document.getElementById(i).onclick="";
+		document.getElementById(i).classList.remove('field:hover');
+		document.getElementById(i).classList.add('off');
 	}
 	document.getElementById("result").innerHTML="<img src='img/remis.png'>";
 }
@@ -32,10 +31,9 @@ function draw()
 function win(who){
 	for(var i=1; i<=9; i++) 
 	{
-		var nr = ""+i;
-		document.getElementById(nr).onclick="";
-		document.getElementById(nr).classList.remove('field');
-		document.getElementById(nr).classList.add('off');
+		document.getElementById(i).onclick="";
+		document.getElementById(i).classList.remove('field');
+		document.getElementById(i).classList.add('off');
 	}
 	document.getElementById("result").innerHTML="<img src='img/win"+who+".png'>";
 	
@@ -44,16 +42,21 @@ function win(who){
 
 //Sprawdzanie gdzie zaszla wygrana, czyli gdzie divy w lini sa takie same
 
-
 function ifwin(who){
-	if(document.getElementById("1").innerHTML === document.getElementById("2").innerHTML && document.getElementById("2").innerHTML === document.getElementById("3").innerHTML ||
-		document.getElementById("4").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("6").innerHTML ||
-		document.getElementById("7").innerHTML === document.getElementById("8").innerHTML && document.getElementById("8").innerHTML === document.getElementById("9").innerHTML ||
-		document.getElementById("1").innerHTML === document.getElementById("4").innerHTML && document.getElementById("4").innerHTML === document.getElementById("7").innerHTML ||
-		document.getElementById("2").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("8").innerHTML ||
-		document.getElementById("3").innerHTML === document.getElementById("6").innerHTML && document.getElementById("6").innerHTML === document.getElementById("9").innerHTML ||
-		document.getElementById("1").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("9").innerHTML ||
-		document.getElementById("3").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("7").innerHTML) 
+		var divs = new Array;
+
+		for (var i=1; i<=9; i++)
+		{
+			divs[i]=document.getElementById(i).innerHTML;
+		}
+	if(divs[1] === divs[2] && divs[2] === divs[3] ||
+		divs[4] === divs[5] && divs[5] === divs[6] ||
+		divs[7] === divs[8] && divs[8] === divs[9] ||
+		divs[1] === divs[4] && divs[4] === divs[7] ||
+		divs[2] === divs[5] && divs[5] === divs[8] ||
+		divs[3] === divs[6] && divs[6] === divs[9] ||
+		divs[1] === divs[5] && divs[5] === divs[9] ||
+		divs[3] === divs[5] && divs[5] === divs[7]) 
 		win(who);
 }
 
