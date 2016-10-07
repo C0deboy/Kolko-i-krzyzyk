@@ -1,4 +1,4 @@
-//(function () {	//IIFE
+(function () {	//IIFE
 	"use strict";
 
 //Wyswietlenie kto wygral i usuwanie aktywnosci pól
@@ -6,9 +6,7 @@
 function win(who){
 	for(var i=0; i<=8; i++) 
 	{
-		document.getElementById(i).onclick="";
-		//var rmInsert = "insert("+i+")";
-		//document.getElementById(i).removeEventListener("click", rmInsert);
+		document.getElementById(i).removeEventListener("click", insert);
 		document.getElementById(i).classList.remove('field');
 		document.getElementById(i).classList.add('off');
 	}
@@ -43,19 +41,16 @@ var round = 1;
 //funkcja wstawajaca kolko lub krzyzyk w zaleznosci od rundy
 function insert(i)
 {
-
 	//Porownanie zawartosci poczatkowej diva
 	
 	var getState = document.getElementById(i).innerHTML;
-	var state="<p>"+i+"</p>";
-	
+	var state=i;
 	if (round%2==0 && getState == state) {
 		
 		document.getElementById(i).innerHTML="<img src='img/krzyzyk.png'>";
 		click.play();
 		
 		round++;
-		console.log(round);
 		if(round>=3 && round<=10) ifWin("x");
 		return;
 		
@@ -66,7 +61,6 @@ function insert(i)
 		click.play();
 		
 		round++;
-		console.log(round);
 		if(round>=3 && round<=10) ifWin("o");
 		return;
 		
@@ -78,14 +72,27 @@ function insert(i)
 
 
 	//Tworzenie 9 divow z id 1,2,3...
-	var fields ="";
 	
-	for (var i=0; i<=8; i++)
-	{
-		fields = fields +'<div id="'+i+'" class="field" onclick="insert('+i+')"><p>'+i+'</p></div>';
-		document.getElementById("fields").innerHTML=fields;
-//nie działo prawidłowo->		document.getElementById(i).addEventListener("click", function(){insert(i);});
-	}
+	
+	for (var i=0; i<9; i++)
+{
+	var field = document.createElement('div');
+    field.classList.add('field');
+    field.id = i;
+    field.textContent =i;
 
-//})();	//IIFE
+    document.getElementById('fields').appendChild(field);
+}
+	
+	//Even Delegation https://davidwalsh.name/event-delegate
+	document.getElementById("fields").addEventListener("click",function(e) 
+	{
+	if (e.target && e.target.matches("div.field")) 
+	{
+		var i = e.target.id;
+		insert(i);
+	}
+	});
+
+})();	//IIFE
 

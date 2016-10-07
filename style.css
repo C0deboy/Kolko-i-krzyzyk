@@ -37,10 +37,7 @@ body {
 	width: 160px;
 	cursor: pointer;
 	float: left;
-}
-
-.field p {
-	visibility: hidden;
+	color: transparent;
 }
 
 .field:hover {
@@ -53,17 +50,8 @@ body {
 	height:  160px;
 	width: 160px;
 	float: left;
+	color: transparent;
 }
-
-.off:hover {
-	
-}
-
-.off p {
-	visibility: hidden;
-}
-
-
 
 .replay {
 	font-size: 25px;
