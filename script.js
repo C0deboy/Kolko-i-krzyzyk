@@ -68,7 +68,17 @@ function insert(i)
 	
 }
 	//Replay button
-	document.getElementById("replay").addEventListener("click", function(){location.reload();});
+	document.getElementById("replay").addEventListener("click", clear);
+	
+	function clear(){
+		for(i=0; i<=8; i++){
+			document.getElementById(i).innerHTML=i;
+			document.getElementById(i).classList.remove('off');
+			document.getElementById(i).classList.add('field');
+			}
+		document.getElementById("result").innerHTML="";
+		round=1;
+	}
 
 
 	//Tworzenie 9 divow z id 1,2,3...
