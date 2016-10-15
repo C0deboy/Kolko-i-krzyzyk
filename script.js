@@ -1,6 +1,6 @@
 (function () {	//IIFE
 	"use strict";
-
+	
 //Wyswietlenie kto wygral i usuwanie aktywnosci pól
 
 function win(who){
@@ -43,9 +43,7 @@ function insert(i)
 {
 	//Porownanie zawartosci poczatkowej diva
 	
-	var getState = document.getElementById(i).innerHTML;
-	var state=i;
-	if (round%2==0 && getState == state) {
+	if (round%2==0) {
 		
 		document.getElementById(i).innerHTML="<img src='img/krzyzyk.png'>";
 		click.play();
@@ -55,7 +53,7 @@ function insert(i)
 		return;
 		
 	}
-	if(round%2!=0 && getState == state) {
+	if(round%2!=0) {
 		
 		document.getElementById(i).innerHTML="<img src='img/kolko.png'>";
 		click.play();
@@ -95,9 +93,12 @@ function insert(i)
 }
 	
 	//Even Delegation https://davidwalsh.name/event-delegate
-	document.getElementById("fields").addEventListener("click",function(e) 
-	{
-	if (e.target && e.target.matches("div.field")) 
+	document.getElementById("fields").addEventListener("click",function(e) {
+		
+	if( e.target.classList.contains('field') === false ) {
+    return;
+	}
+	else
 	{
 		var i = e.target.id;
 		insert(i);
