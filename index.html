@@ -2,22 +2,30 @@
 <html lang="pl">
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Kółko i krzyżyk</title>
 	
-	<title></title>
-	
-	<meta name="description" content="Opis w Google" />
-	<meta name="keywords" content="słowa, kluczowe, wypisane, po, porzecinku" />
-	<script type="text/javascript" src="script.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta name="description" content="Zagraj w kółko i krzyżyk!">
+
+	<link rel="stylesheet" href="style.css">
 	
 </head>
 
 <body>
-	<div id="tura"><p>Zaczyna:</p><img src="img/kolko.png"></div>
-	<div id="baner"><img src="img/baner.png"></div>
-	<div id="pola"></div>
-	<div id="replay"><p>Jeszcze raz! </p><img onclick="location.reload()" src="img/replay.png"></div>
-	<div id="wynik"></div>
+	
+	<div class="all">
+	<div class="turn"><p>Zaczyna:</p><img src="img/kolko.png" alt="Kółko"></div>
+	
+	<div class="center">
+	<div class="banner"><img src="img/baner.png" alt="baner"></div>
+	<div id="fields" class="fields"></div>
+	<div id="result" class="result"></div>
+	</div>
+	
+	<div id="replay"  class="replay"><p>Jeszcze raz! </p><img src="img/replay.png" alt="Replay"></div>
+	</div>
+	
+	<script src="script.js"></script>
+	
 </body>
 </html>

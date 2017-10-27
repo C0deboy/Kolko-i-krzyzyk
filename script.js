@@ -1,109 +1,117 @@
-//Tworzenie 9 divow z id 1,2,3...
-function makefields()
-{
-	var pola ="";
-	
-	for (i=1; i<=9; i++)
-	{
-	pola = pola +'<div id="'+i+'" class="pole" style="float: left" onclick="postaw('+i+')"><p>'+i+'</p></div>';
-		document.getElementById("pola").innerHTML=pola;
-	}
-	
-}
-window.onload=makefields;
+(function () {	//IIFE
+	"use strict";
 
-//Wyswietlenie remisu i usuwanie aktywnosci pól
-function remis()
- {
-	for(i=1; i<=9; i++) 
-	{
-		var nr = ""+i;
-		document.getElementById(nr).onclick="";
-		document.getElementById(nr).setAttribute("class", "off");
-	}
-	document.getElementById("wynik").innerHTML="<img src='img/remis.png'>";
-}
+	//Wyswietlenie kto wygral i usuwanie aktywnosci pól
 
-//Wyswietlenie kto wygral i usuwanie aktywnosci pól
-
-function win(who){
-	for(i=1; i<=9; i++) 
-	{
-		var nr = ""+i;
-		document.getElementById(nr).onclick="";
-		document.getElementById(nr).setAttribute("class", "off");
-	}
-	document.getElementById("wynik").innerHTML="<img src='img/win"+who+".png'>";
-	
-	
-}
-
-//Sprawdzanie gdzie zaszla wygrana, czyli gdzie divy w lini sa takie same
-
-function ifwin(who){
-	
-	if(document.getElementById("1").innerHTML === document.getElementById("2").innerHTML && document.getElementById("2").innerHTML === document.getElementById("3").innerHTML ||
-		document.getElementById("4").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("6").innerHTML ||
-		document.getElementById("7").innerHTML === document.getElementById("8").innerHTML && document.getElementById("8").innerHTML === document.getElementById("9").innerHTML ||
-		document.getElementById("1").innerHTML === document.getElementById("4").innerHTML && document.getElementById("4").innerHTML === document.getElementById("7").innerHTML ||
-		document.getElementById("2").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("8").innerHTML ||
-		document.getElementById("3").innerHTML === document.getElementById("6").innerHTML && document.getElementById("6").innerHTML === document.getElementById("9").innerHTML ||
-		document.getElementById("1").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("9").innerHTML ||
-		document.getElementById("3").innerHTML === document.getElementById("5").innerHTML && document.getElementById("5").innerHTML === document.getElementById("7").innerHTML) 
-		win(who);
-	
-}
-
-	
-var klik = new Audio("klik.wav");
-var runda = 1;
-
-//funkcja wstawajaca kolko lub krzyzyk w zaleznosci od rundy
-function postaw(i)
-{
-
-	//Porownanie zawartosci poczatkowej diva
-	var div = ""+i;
-	var get = document.getElementById(div).innerHTML;
-	var stan="<p>"+i+"</p>";
-	
-	
-	if (runda%2==0 && get == stan) {
+	function win(who){
 		
-		document.getElementById(i).innerHTML="<img src='img/krzyzyk.png'>";
-		klik.play();
-		var who = "x";
-		if(runda>=3) ifwin(who);
-		runda++;
-		
-		if (runda>9){
-			remis();
-			return 0;
+		for(var i=0; i<=8; i++) {
+			field[i].removeEventListener("click", insert);
+			field[i].classList.remove('field');
+			field[i].classList.add('off');
 		}
 		
-		return 0;
+		result.innerHTML="<img src='img/"+who+".png'>";
 	}
-	
-	if(runda%2!=0 && get == stan) {
+
+	//Sprawdzanie gdzie zaszla wygrana, czyli gdzie divy w lini sa takie same
+
+	function ifWin(who){
 		
-		document.getElementById(i).innerHTML="<img src='img/kolko.png'>";
-		klik.play();
-		var who = "o";
-		if(runda>=3) ifwin(who);
-		runda++;
-		
-		if (runda>9){
-			remis();
-			return 0;
+		var divs = [];
+
+		for (var i=0; i<=8; i++){
+			divs[i]=field[i].innerHTML;
 		}
 		
+		if( divs[0] === divs[1] && divs[1] === divs[2] ||
+			divs[3] === divs[4] && divs[4] === divs[5] ||
+			divs[6] === divs[7] && divs[7] === divs[8] ||
+			divs[0] === divs[3] && divs[3] === divs[6] ||
+			divs[1] === divs[4] && divs[4] === divs[7] ||
+			divs[2] === divs[5] && divs[5] === divs[8] ||
+			divs[0] === divs[4] && divs[4] === divs[8] ||
+			divs[2] === divs[4] && divs[4] === divs[6]){
+			win(who);
+		}
 		
-		return 0;
+		else if(round>9) win("draw");
+	}
+
+
+	//funkcja wstawajaca kolko lub krzyzyk w zaleznosci od rundy
+	
+	function insert(i){
+		
+		click.play();
+		round++;
+		
+		if (round%2==0) {
+			
+			field[i].innerHTML="<img src='img/krzyzyk.png'>";
+			if(round>=3) ifWin("x");
+			return;
+			
+		}
+		
+		if(round%2!=0) {
+			
+			field[i].innerHTML="<img src='img/kolko.png'>";
+			
+			if(round>=3) ifWin("o");
+			return;
+			
+		}
+		
+	}
+
+	//Replay button
+	
+	document.getElementById("replay").addEventListener("click", clear);
+		
+	function clear(){
+		
+		for(i=0; i<=8; i++){
+			field[i].innerHTML=i;
+			field[i].classList.remove('off');
+			field[i].classList.add('field');
+		}
+
+		result.innerHTML="";
+		round=1;
+	}
+
+	//Tworzenie 9 divow z id 1,2,3...
+	
+	for (var i=0; i<9; i++){
+		var field = document.createElement('div');
+		field.classList.add('field');
+		field.id = i;
+		field.textContent =i;
+		
+		document.getElementById('fields').appendChild(field);
 	}
 	
+	//Zmienne globalne:
+	//Pola:
+	var field = document.querySelectorAll('.field');	
+	//Pole wyniku
+	var result = document.getElementById("result");
+	//Klik
+	var click = new Audio("klik.wav");
+	//Runda
+	var round = 1;
 	
+		
+	//Event Delegation https://davidwalsh.name/event-delegate
 	
+	document.getElementById("fields").addEventListener("click",function(e){
+		if(e.target.classList.contains('field')){
+			parseInt( e.target.id );
+			insert( e.target.id );
+		}
+		
+	});
 
-}
-
+})();	//IIFE
 
